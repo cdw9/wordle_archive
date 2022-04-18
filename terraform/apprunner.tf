@@ -80,13 +80,13 @@ data "aws_iam_policy_document" "wordle_archive" {
   statement {
     resources = [
       aws_ecr_repository.wordle_archive.arn,
-    "${aws_ecr_repository.wordle_archive.arn}/*",
+      "${aws_ecr_repository.wordle_archive.arn}/*",
     ]
     actions = ["ecr:*"]
   }
-    statement {
+  statement {
     resources = ["*"]
-    actions = ["ecr:GetAuthorizationToken"]
+    actions   = ["ecr:GetAuthorizationToken"]
   }
 }
 

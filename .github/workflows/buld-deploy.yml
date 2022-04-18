@@ -1,0 +1,40 @@
+
+name: CI
+
+permissions:
+  id-token: write # required to use OIDC authentication
+  contents: read # required to checkout the code from the repo
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  ECR_TAG: 137242125837.dkr.ecr.us-east-1.amazonaws.com/wordle_archive:latest
+  AWS_ROLE: arn:aws:iam::137242125837:role/github-oidc
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      - name: configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: $AWS_ROLE
+          role-duration-seconds: 3600
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Docker build
+        run: docker build -t $ECR_TAG . 
+
+      - name: Docker push
+        run: docker push $ECR_TAG
+
