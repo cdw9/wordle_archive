@@ -11,8 +11,8 @@ on:
   workflow_dispatch:
 
 env:
-  ECR_TAG: 137242125837.dkr.ecr.us-east-1.amazonaws.com/wordle_archive:latest
-  AWS_ROLE: arn:aws:iam::137242125837:role/github-oidc
+  ECR_TAG: "137242125837.dkr.ecr.us-east-1.amazonaws.com/wordle_archive:latest"
+  AWS_ROLE: "arn:aws:iam::137242125837:role/github-oidc"
 
 jobs:
   build:
