@@ -27,7 +27,7 @@ resource "aws_iam_role" "github" {
                     ]
                 },
                 "StringLike": {
-                    "token.actions.githubusercontent.com:sub": "repo:cdw0/wordle_archive:*"
+                    "token.actions.githubusercontent.com:sub": "repo:cdw9/wordle_archive:*"
                 }
             }
         }
