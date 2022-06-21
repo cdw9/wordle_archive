@@ -31,7 +31,7 @@ resource "aws_cloudfront_distribution" "aw" {
   enabled             = true
   is_ipv6_enabled     = true
   price_class         = "PriceClass_100"
-  default_root_object = "index.html"
+  default_root_object = "wordle_archive/index.html"
 
   origin {
     domain_name = aws_s3_bucket.aw.bucket_regional_domain_name
