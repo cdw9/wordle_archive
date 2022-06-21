@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  S3_BUCKET: "s3://wordle-archive20220621134744327500000005/"
+  S3_BUCKET: "s3://wordle-archive20220621134744327500000005/wordle_archive"
   AWS_ROLE: "arn:aws:iam::846359942316:role/github-oidc-wordle-archive"
 
 jobs:
@@ -40,4 +40,4 @@ jobs:
         run: docker cp wordle_archive:/usr/share/nginx/html/wordle_archive ./wordle_archive
 
       - name: S3 sync
-        run: aws s3 sync ./wordle_archive $S3_BUCKET
+        run: aws s3 sync wordle_archive $S3_BUCKET --delete
