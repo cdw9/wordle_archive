@@ -34,7 +34,7 @@ jobs:
         run: docker build -t wordle_archive . 
 
       - name: Docker create
-        run: docker create wordle_archive --name wordle_archive
+        run: docker create --name wordle_archive wordle_archive
 
       - name: Docker cp
         run: docker cp wordle_archive:/usr/share/nginx/html/wordle_archive ./wordle_archive
