@@ -11,8 +11,8 @@ on:
   workflow_dispatch:
 
 env:
-  ECR_TAG: "137242125837.dkr.ecr.us-east-1.amazonaws.com/wordle_archive:latest"
-  AWS_ROLE: "arn:aws:iam::137242125837:role/github-oidc"
+  S3_BUCKET: "s3://wordle-archive20220621134744327500000005/"
+  AWS_ROLE: "arn:aws:iam::846359942316:role/github-oidc-wordle-archive"
 
 jobs:
   build:
@@ -30,13 +30,14 @@ jobs:
           role-duration-seconds: 3600
           aws-region: us-east-1
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
       - name: Docker build
-        run: docker build -t $ECR_TAG . 
+        run: docker build -t wordle_archive . 
 
-      - name: Docker push
-        run: docker push $ECR_TAG
+      - name: Docker create
+        run: docker create wordle_archive --name wordle_archive
 
+      - name: Docker cp
+        run: docker cp wordle_archive:/usr/share/nginx/html/wordle_archive ./wordle_archive
+
+      - name: S3 sync
+        run: aws s3 sync ./wordle_archive $S3_BUCKET

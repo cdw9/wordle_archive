@@ -9,7 +9,7 @@ resource "aws_iam_openid_connect_provider" "github" {
 }
 
 resource "aws_iam_role" "github" {
-  name               = "github-oidc"
+  name               = "github-oidc-wordle-archive"
   assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -39,5 +39,21 @@ EOF
 resource "aws_iam_role_policy_attachment" "github" {
   role       = aws_iam_role.github.name
   policy_arn = aws_iam_policy.wordle_archive.arn
+}
+
+resource "aws_iam_policy" "wordle_archive" {
+  name   = "wordle_archive"
+  path   = "/"
+  policy = data.aws_iam_policy_document.wordle_archive.json
+}
+
+data "aws_iam_policy_document" "wordle_archive" {
+  statement {
+    resources = [
+      aws_s3_bucket.aw.arn,
+      "${aws_s3_bucket.aw.arn}/*",
+    ]
+    actions = ["s3:*"]
+  }
 }
 
