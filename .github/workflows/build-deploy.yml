@@ -13,6 +13,7 @@ on:
 env:
   S3_BUCKET: "s3://wordle-archive20220621134744327500000005/wordle_archive"
   AWS_ROLE: "arn:aws:iam::846359942316:role/github-oidc-wordle-archive"
+  DISTRIBUTION: "E3RT1I5QRMAW27"
 
 jobs:
   build:
@@ -41,3 +42,6 @@ jobs:
 
       - name: S3 sync
         run: aws s3 sync wordle_archive $S3_BUCKET --delete
+
+      - name: Cloudfront Invalidation
+        run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION --paths "/*"

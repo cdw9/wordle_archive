@@ -55,5 +55,11 @@ data "aws_iam_policy_document" "wordle_archive" {
     ]
     actions = ["s3:*"]
   }
+  statement {
+    resources = [
+      aws_cloudfront_distribution.aw.arn,
+    ]
+    actions = ["cloudfront:CreateInvalidation"]
+  }
 }
 
