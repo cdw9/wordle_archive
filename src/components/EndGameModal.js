@@ -115,7 +115,7 @@ export const EndGameModal = ({
           {gameState === state.won && (
             <>
               <img src={Success} alt="success" height="auto" width="auto" />
-              <h1 className=" text-3xl">❤️ You are seriously the bestest!!!1!!<br/>#winning #wordlewinner #winnerwinnersushidinner</h1>
+              <h1 className=" text-3xl">Very wow. Much awesome. 💯💕🥳<br/>#winnerwinnersushidinner</h1>
               <p className="mt-3 text-2xl">
                 Won: {wins}
               </p>
